@@ -93,6 +93,19 @@ For cluster-mode enabled replication groups, please add the `--cluster-mode` fla
 
 The demo app creates a new connection to the host using the IAM user identity and generates an IAM authentication token.
 
+## Serverless Support
+This demo also supports Elasticache Serverless for Valkey/Redis. Simply use the serverless-cache-name as the value for the --replication-group-id parameter.
+
+### To generate a token for Elasticache Serverless Valkey/Redis cache
+```
+python3 ./iam_authtoken_generator_app.py --replication-group-id <serverless-cache-name> --user-id <iamuser> --region <us-west-2>
+```
+
+### To connect to an Elasticache Serverless Valkey/Redis cache
+```
+python3 ./iam_auth_demo_app.py --user-id <iamuser> --replication-group-id <serverless-cache-name> --region <us-west-2> --redis-host <endpoint> --tls --cluster-mode --connect-sleep-time 10
+```
+
 ## Auto Reconnect
 An IAM authenticated connection to ElastiCache for Valkey or Redis OSS will automatically be disconnected after 12 hours. This program automatically reconnects using a new IAM authentication token after the server disconnects.
 
